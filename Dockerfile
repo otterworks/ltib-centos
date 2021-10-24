@@ -23,7 +23,4 @@ USER ltib
 ENV HOME /home/ltib
 RUN ["/bin/bash", "-c", "set -o pipefail && mkdir -p ${HOME}/ltib && wget -qO-  http://download.savannah.nongnu.org/releases/ltib/ltib-13-2-1-sv.tar.gz | tar zxv --directory ${HOME}/ltib --strip-components=1"]
 WORKDIR ${HOME}/ltib/
-RUN ./ltib --hostcf &> host_config.log & tail --pid $! -n +1 -F host_config.log
-
-#WORKDIR /tmp
-
+RUN ./ltib --hostcf &> host_config.log
