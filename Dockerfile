@@ -24,3 +24,8 @@ ENV HOME /home/ltib
 RUN ["/bin/bash", "-c", "set -o pipefail && mkdir -p ${HOME}/ltib && wget -qO-  http://download.savannah.nongnu.org/releases/ltib/ltib-13-2-1-sv.tar.gz | tar zxv --directory ${HOME}/ltib --strip-components=1"]
 WORKDIR ${HOME}/ltib/
 RUN ./ltib --hostcf &> host_config.log
+
+# BUILD `skell` on a personal machine with `sudo docker build .` because it *needs* `mknod`
+COPY config $HOME/ltib/config
+RUN mkdir rootfs
+RUN ./ltib --preconfig config/lpc3250-base.config --batch --pkg skell
