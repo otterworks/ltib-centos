@@ -34,3 +34,14 @@ sudo podman login --username flynn ghcr.io/otterworks
 sudo podman push ghcr.io/otterworks/ltib-centos:latest
 # sudo skopeo copy docker://ghcr.io/otterworks/ltib-centos:latest docker://ghcr.io/otterworks/ltib-centos:0.2.0
 sudo podman logout ghcr.io/otterworks
+```
+and to clean up the images that are in the podman cache for the root user:
+```
+sudo podman image ls
+sudo podman ps --all --storage
+# sudo buildah rm --all
+sudo podman image rm ghcr.io/otterworks/ltib-centos:latest
+sudo podman image rm quay.io/centos/centos:7
+sudo podman image prune
+sudo podman image ls
+```
